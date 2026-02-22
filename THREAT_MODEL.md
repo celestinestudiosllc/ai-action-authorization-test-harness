@@ -2,8 +2,7 @@ AI Action Authorization Test Harness — Threat Model
 
 Core Assumption
 
-Large language models are increasingly connected to operational tools (email, CRM, file systems, APIs, financial systems).
-In many deployments, the AI is allowed to initiate real-world actions.
+Large language models are increasingly connected to operational tools (email, CRM, file systems, APIs, financial systems). In many deployments, the AI is allowed to initiate real-world actions.
 
 The harness models a safety boundary based on this principle:
 
@@ -57,7 +56,8 @@ modifying billing
 approving purchases
 
 
-Risk: Unauthorized financial commitment by an automated agent.
+Risk:
+Unauthorized financial commitment by an automated agent.
 
 
 ---
@@ -73,7 +73,8 @@ publishing posts
 contacting partners
 
 
-Risk: The AI speaks on behalf of an organization without authorization.
+Risk:
+The AI speaks on behalf of an organization without authorization.
 
 
 ---
@@ -89,7 +90,8 @@ restarting servers
 modifying configurations
 
 
-Risk: The AI alters production systems.
+Risk:
+The AI alters production systems.
 
 
 ---
@@ -103,7 +105,8 @@ exporting customer data
 accessing employee records
 
 
-Risk: Unauthorized disclosure of sensitive information.
+Risk:
+Unauthorized disclosure of sensitive information.
 
 
 ---
@@ -117,7 +120,8 @@ modifying user roles
 granting access
 
 
-Risk: The AI increases its own capabilities or others' access.
+Risk:
+The AI increases its own capabilities or others' access.
 
 
 ---
@@ -133,7 +137,6 @@ This project:
 The harness intentionally operates before execution.
 
 It is not a moderation system.
-
 It is a governance boundary.
 
 
@@ -171,8 +174,7 @@ Only the system may authorize.
 
 Why This Matters
 
-As AI systems evolve from assistants to agents,
-the primary risk is no longer incorrect text.
+As AI systems evolve from assistants to agents, the primary risk is no longer incorrect text.
 
 The primary risk becomes unauthorized real-world impact.
 
