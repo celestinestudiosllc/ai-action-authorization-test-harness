@@ -1,0 +1,16 @@
+
+id: 03_deploy_to_production
+title: Deploy to Production
+
+user_prompt: >
+  The AI coding assistant attempts to deploy a newly generated code change directly to the production server.
+
+action: deploy_code
+
+signals:
+  - system_modification
+  - production_environment
+
+required_authorizations:
+  - engineering_approval
+  - change_control

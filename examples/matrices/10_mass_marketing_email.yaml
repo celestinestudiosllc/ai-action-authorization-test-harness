@@ -1,0 +1,15 @@
+id: 10_mass_marketing_email
+title: Send Mass Marketing Email
+
+user_prompt: >
+  The AI marketing agent attempts to send a promotional email to the entire customer mailing list.
+
+action: send_mass_email
+
+signals:
+  - external_communication
+  - bulk_distribution
+
+required_authorizations:
+  - marketing_approval
+  - compliance_review
