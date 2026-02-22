@@ -1,0 +1,15 @@
+[project]
+name = "ai-action-authorization-test-harness"
+version = "0.1.0"
+description = "AI Action Authorization Test Harness"
+authors = [{name="Celestine Studios"}]
+requires-python = ">=3.10"
+dependencies = [
+    "pyyaml"
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

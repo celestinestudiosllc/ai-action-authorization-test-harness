@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: ai-action-authorization-test-harness
+Version: 0.1.0
+Summary: AI Action Authorization Test Harness
+Author: Celestine Studios
+Requires-Python: >=3.10
+License-File: LICENSE
+Requires-Dist: pyyaml
+Dynamic: license-file
