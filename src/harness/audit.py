@@ -28,10 +28,28 @@ def _get_harness_version() -> str:
         return "unknown"
 
 
-def log_event(logfile, matrix_id, result):
+def log_event(logfile, matrix_id, matrix_title=None, result=None):
+    """
+    Writes a single audit record to audit.jsonl
+
+    Backward compatible:
+    Old calls: log_event(logfile, matrix_id, result)
+    New calls: log_event(logfile, matrix_id, matrix_title, result)
+    """
+
+    # ---- Backward compatibility handling ----
+    # If only 3 args passed, matrix_title actually contains result
+    if isinstance(matrix_title, dict) and result is None:
+        result = matrix_title
+        matrix_title = None
+
+    if result is None:
+        raise ValueError("log_event() missing result payload")
+
     entry = {
         "timestamp_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
         "matrix_id": matrix_id,
+        "matrix_title": matrix_title,
         "decision": result["decision"],
         "reason": result["reason"],
         "signals": result.get("signals", []),

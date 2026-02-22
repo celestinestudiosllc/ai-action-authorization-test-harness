@@ -1,8 +1,11 @@
+# src/cli.py
+
 import argparse
 import os
+from pathlib import Path
 
 from harness.runner import run_all
-from report import generate_report
+from harness.report import generate_report
 
 
 def main():
@@ -19,7 +22,7 @@ def main():
     parser.add_argument(
         "--matrices",
         required=True,
-        help="Directory containing matrix test definitions"
+        help="Directory or YAML file containing matrix test definitions"
     )
 
     parser.add_argument(
@@ -30,15 +33,18 @@ def main():
 
     args = parser.parse_args()
 
-    # Run tests
-    run_all(args.matrices, args.out)
+    out_dir = Path(args.out)
+    out_dir.mkdir(parents=True, exist_ok=True)
 
-    # After running, generate report
-    audit_log = os.path.join(args.out, "audit.jsonl")
+    # Run tests (runner is responsible for writing audit.jsonl)
+    run_all(args.matrices, str(out_dir))
 
-    if os.path.exists(audit_log):
-        generate_report(audit_log, args.out)
-        print(f"\nAuthorization report generated: {args.out}/authorization_report.txt")
+    # After running, generate report from the audit log created THIS run
+    audit_log = out_dir / "audit.jsonl"
+
+    if audit_log.exists():
+        generate_report(audit_log, out_dir)
+        print(f"\nAuthorization report written to: {out_dir / 'authorization_report.txt'}")
     else:
         print("No audit log found — report not generated.")
 

@@ -1,5 +1,7 @@
 # src/harness/runner.py
 
+from __future__ import annotations
+
 from pathlib import Path
 
 from .loader import load_matrices
@@ -8,11 +10,12 @@ from .audit import log_event
 
 
 def run_all(matrix_dir, output_dir):
-    Path(output_dir).mkdir(parents=True, exist_ok=True)
-    logfile = Path(output_dir) / "audit.jsonl"
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    logfile = output_dir / "audit.jsonl"
 
     # ✅ Always start fresh so reports reflect ONLY this run
-    # (prevents old PASS/DENY entries from showing up in the same report)
     logfile.write_text("", encoding="utf-8")
 
     matrices = load_matrices(matrix_dir)
@@ -20,10 +23,18 @@ def run_all(matrix_dir, output_dir):
     print(f"Running {len(matrices)} tests...\n")
 
     for m in matrices:
-        result = evaluate(m["user_prompt"])
+        matrix_id = m.get("id", "unknown")
+        matrix_title = m.get("title", "")
 
-        print(f"{m['id']} -> {result['decision']} ({result['reason']})")
+        result = evaluate(m.get("user_prompt", ""))
 
-        log_event(logfile, m["id"], result)
+        print(f"{matrix_id} -> {result['decision']} ({result['reason']})")
+
+        # Prefer upgraded audit signature: log_event(logfile, matrix_id, title, result)
+        try:
+            log_event(logfile, matrix_id, matrix_title, result)
+        except TypeError:
+            # Backward compat: log_event(logfile, matrix_id, result)
+            log_event(logfile, matrix_id, result)
 
     print("\nAudit log saved to:", logfile)
