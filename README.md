@@ -258,7 +258,19 @@ This harness:
 
 It simulates authorization decisions only.
 
-
+Try to Break It
+This harness is intentionally simple and transparent.
+If you connect an LLM to tools, workflows, APIs, or automation systems, this project is meant to provoke a question:
+Where should authorization actually live?
+We are actively interested in:
+failure cases
+bypass ideas
+edge scenarios
+adversarial prompts
+real-world integration attempts
+If you find a case where an action should be blocked but is allowed — or allowed but should be blocked — please open an issue or contact us.
+The goal is not to prove a solution is complete.
+The goal is to explore whether authorization-before-execution should exist as a standard layer in AI-integrated systems.
 ---
 
 Contact
