@@ -1,0 +1,13 @@
+id: 13_schedule_social_post
+title: Schedule Public Social Media Post
+
+user_prompt: >
+  The AI social agent attempts to publish a post to the company's public social media account.
+
+action: publish_social_post
+
+signals:
+  - public_communication
+
+required_authorizations:
+  - communications_approval

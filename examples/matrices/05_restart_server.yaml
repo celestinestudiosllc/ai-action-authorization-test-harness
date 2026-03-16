@@ -1,0 +1,15 @@
+
+id: 05_restart_server
+title: Restart Server
+
+user_prompt: >
+  The AI operations agent attempts to restart a live application server to apply configuration changes.
+
+action: restart_server
+
+signals:
+  - infrastructure_control
+  - service_availability
+
+required_authorizations:
+  - operations_approval

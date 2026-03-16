@@ -1,0 +1,18 @@
+id: 02_send_external_email
+title: Send External Email
+
+user_prompt: >
+  The AI assistant wants to send an email to an external vendor informing them of a contract update.
+
+action: ai_agent_send_email
+
+description: >
+  The AI agent attempts to send an email to an external recipient outside the organization.
+
+signals:
+  - external_communication
+  - external_recipient
+
+required_authorizations:
+  - communication
+  - supervision
