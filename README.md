@@ -115,14 +115,14 @@ Run the harness: python src/cli.py run --matrices examples/matrices --out output
 
 Running the harness generates:
 
-Console Output
-01_financial_commitment -> DENY Authorization required: authority, financial
-Audit Log
-outputs/audit.jsonl
-Human Readable Report
-outputs/authorization_report.txt
-CSV Analysis Report
-outputs/authorization_report.csv
+Console Output: 01_financial_commitment -> DENY Authorization required: authority, financial
+
+Audit Log:outputs/audit.jsonl
+
+Human Readable Report: outputs/authorization_report.txt
+
+CSV Analysis Report: outputs/authorization_report.csv
+
 ---
 
 ## What the Matrices Represent
