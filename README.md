@@ -99,14 +99,16 @@ along with an auditable reasoning trail.
 
 ## Quick Start
 
-Clone the repository:
- git clone https://github.com/celestinestudiosllc/ai-action-authorization-test-harness.git⁠� cd ai-action-authorization-test-harness
-Create a virtual environment: 
-python3 -m venv venv source venv/bin/activate
-Install dependencies:
-pip install pyyaml pip install -e .
-Run the harness:
-python src/cli.py run --matrices examples/matrices --out outputs
+Clone the repository: git clone https://github.com/celestinestudiosllc/ai-action-authorization-test-harness.git⁠� cd ai-action-authorization-test-harness
+ 
+ 
+Create a virtual environment: python3 -m venv venv source venv/bin/activate
+
+
+Install dependencies: pip install pyyaml pip install -e
+
+Run the harness: python src/cli.py run --matrices examples/matrices --out outputs
+
 ---
 
 ## What the Harness Produces
