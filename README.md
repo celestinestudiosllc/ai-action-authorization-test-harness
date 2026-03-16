@@ -43,18 +43,21 @@ Example output:---
 
 The authorization layer sits between AI agents and operational tools.
 AI Agent / LLM
+
+
       │
       ▼
+
       
 Authorization Layer
-      │
+   
   ┌───┴────┐
-  │        │
   
- PASS     DENY
-  │        │
-Tool   Requires
-Exec   Approval
+  │Pass,Deny│
+  
+  │Tool, Require│
+  
+  |Exec,Approval|
 
 ---
 
