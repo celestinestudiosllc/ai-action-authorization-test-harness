@@ -38,8 +38,17 @@ Example output:---
 ## Conceptual Architecture
 
 The authorization layer sits between AI agents and operational tools.
-AI Agent / LLM │ ▼ Authorization Layer │ PASS ───► Tool Execution DENY ───► Requires Human Approval
-The model may reason about actions, but execution requires authorization approval through the layer.
+AI Agent / LLM
+      │
+      ▼
+Authorization Layer
+      │
+  ┌───┴────┐
+  │        │
+ PASS     DENY
+  │        │
+Tool   Requires
+Exec   Approval
 
 ---
 
