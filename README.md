@@ -29,9 +29,14 @@ https://youtu.be/oad7y1UK2Q4?si=QoXqBiqge8gEG--a
 
 
 Example output:---
+
+
 1_financial_commitment -> DENY Authorization required: authority, financial
+
 02_send_external_email -> DENY Authorization required: external communication
+
 03_schedule_social_post -> PASS Authorization signals clear
+
 ---
 
 ## Conceptual Architecture
@@ -40,10 +45,12 @@ The authorization layer sits between AI agents and operational tools.
 AI Agent / LLM
       │
       ▼
+      
 Authorization Layer
       │
   ┌───┴────┐
   │        │
+  
  PASS     DENY
   │        │
 Tool   Requires
