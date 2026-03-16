@@ -10,8 +10,13 @@ Most AI safety approaches evaluate model responses.
 This project evaluates authorization to act.
 
 ---
+## Example Harness Output
 
-## Demo
+Below is an example run of the authorization harness evaluating operational scenarios.
+
+![Harness Output](docs/images/harness-output.png)
+
+The harness evaluates operational scenarios and determines whether an AI system should be allowed to attempt an action.## Demo
 
 Short walkthrough of the authorization harness in action.
 
@@ -21,13 +26,7 @@ https://youtu.be/oad7y1UK2Q4?si=QoXqBiqge8gEG--a
 
 ---
 
-## Example Harness Output
 
-Below is an example run of the authorization harness evaluating operational scenarios.
-
-![Harness Output](docs/images/harness-output.png)
-
-The harness evaluates operational scenarios and determines whether an AI system should be allowed to attempt an action.
 
 Example output:---
 1_financial_commitment -> DENY Authorization required: authority, financial
