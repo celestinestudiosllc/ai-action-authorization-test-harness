@@ -44,20 +44,18 @@ Example output:---
 The authorization layer sits between AI agents and operational tools.
 AI Agent / LLM
 
-
       │
-      ▼
-
+      ▼ 
       
 Authorization Layer
    
   ┌───┴────┐
+
+ Pass    Deny       
   
-  │Pass,Deny│
+  Tool   Require
   
-  │Tool, Require│
-  
-  |Exec,Approval|
+  Exec  Approval
 
 ---
 
@@ -109,16 +107,32 @@ along with an auditable reasoning trail.
 
 ## Quick Start
 
-Clone the repository: git clone https://github.com/celestinestudiosllc/ai-action-authorization-test-harness.git⁠� cd ai-action-authorization-test-harness
- 
- 
-Create a virtual environment: python3 -m venv venv source venv/bin/activate
+Clone the repository
 
+```bash
+git clone https://github.com/celestinestudiosllc/ai-action-authorization-test-harness.git
+cd ai-action-authorization-test-harness
+```
 
-Install dependencies: pip install pyyaml pip install -e
+Create virtual environment
 
-Run the harness: python src/cli.py run --matrices examples/matrices --out outputs
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
 
+Install dependencies
+
+```bash
+pip install pyyaml
+pip install -e .
+```
+
+Run the harness
+
+```bash
+python src/cli.py run --matrices examples/matrices --out outputs
+```
 ---
 
 ## What the Harness Produces
