@@ -1,287 +1,187 @@
+# AI Authorization Layer
+Reference Implementation
 
-AI Action Authorization Test Harness
+A deterministic authorization layer that evaluates whether an AI system is permitted to attempt an action before execution occurs.
 
-A practical framework for testing whether an AI system should be allowed to take an action — before it takes it.
+This repository demonstrates a control boundary for AI systems connected to tools, APIs, and operational workflows.
 
-Most AI safety mechanisms evaluate model output.
-This project evaluates model authority.
+Most AI safety approaches evaluate model responses.
 
-We call this:
-
-Authorization Before Execution
-
+This project evaluates authorization to act.
 
 ---
 
-The Core Idea
+## Demo
 
-Modern LLM systems are increasingly connected to real operational tools:
+Short walkthrough of the authorization harness in action.
 
-• CRMs
-• Email systems
-• Financial systems
-• File storage
-• Internal APIs
-• Automated workflows
+Watch the demo:
 
-In many deployments, the model proposes or initiates actions and downstream systems attempt to filter behavior afterward.
+https://youtu.be/oad7y1UK2Q4?si=QoXqBiqge8gEG--a
 
-This introduces a structural risk:
+---
 
-> The AI is being treated as a decision authority instead of an execution requester.
+## Example Harness Output
 
+Below is an example run of the authorization harness evaluating operational scenarios.
 
+![Harness Output](docs/images/harness-output.png)
+
+The harness evaluates operational scenarios and determines whether an AI system should be allowed to attempt an action.
+
+Example output:---
+1_financial_commitment -> DENY Authorization required: authority, financial
+02_send_external_email -> DENY Authorization required: external communication
+03_schedule_social_post -> PASS Authorization signals clear
+---
+
+## Conceptual Architecture
+
+The authorization layer sits between AI agents and operational tools.
+AI Agent / LLM │ ▼ Authorization Layer │ PASS ───► Tool Execution DENY ───► Requires Human Approval
+The model may reason about actions, but execution requires authorization approval through the layer.
+
+---
+
+## The Core Idea
+
+Modern AI systems are increasingly connected to operational tools:
+
+• CRMs  
+• Email systems  
+• Financial systems  
+• File storage  
+• Internal APIs  
+• Automation pipelines  
+
+In many deployments the model proposes or initiates actions while downstream systems attempt to filter behavior afterward.
+
+This introduces structural risk:
+
+**The AI becomes the decision authority instead of the execution requester.**
 
 Traditional guardrails evaluate text.
 
-This harness evaluates permission to act.
-
-
----
-
-The Problem
-
-Current AI safety approaches answer:
-
-> “Was the model’s response safe?”
-
-
-
-But operational systems require a different question:
-
-> “Was the model allowed to request this action at all?”
-
-
-
-Once an AI can:
-
-• send messages
-• trigger workflows
-• commit funds
-• modify systems
-• access sensitive data
-
-…the failure mode changes from bad output to unauthorized execution.
-
-This is not a content filtering problem.
-
-This is an authorization problem.
-
+This layer evaluates **permission to act.**
 
 ---
 
-What This Harness Does
+## What This Harness Does
 
-The AI Action Authorization Test Harness is a local deterministic evaluation system that checks:
-
-Should an AI system be allowed to attempt an action?
+The AI Action Authorization Harness evaluates whether an AI system should be allowed to attempt an operational action.
 
 Each test matrix simulates a real-world operational request and evaluates it against governance signals such as:
 
-• financial commitment
-• authority level
-• operational control
-• data sensitivity
-• external communication
-• system modification
+• financial commitment  
+• authority level  
+• operational control  
+• data sensitivity  
+• external communication  
+• system modification  
 
-The harness outputs a binary operational decision:
+The harness outputs a binary decision:
 
-ALLOW or DENY
+ALLOW  
+or  
+DENY
 
-and produces an auditable reasoning trail.
-
-
----
-
-What Makes It Different
-
-Instead of moderating language, this project models a pre-execution authorization gate.
-
-Think of it as:
-
-A permissions layer for AI agents.
-
-The model can still reason.
-But it cannot act without authorization.
-
+along with an auditable reasoning trail.
 
 ---
 
-What You Can Do With It
-
-You can locally run authorization simulations to understand where an AI system should require human approval before real-world action.
-
-The harness will:
-
-1. Evaluate an action request
-
-
-2. Detect authorization signals
-
-
-3. Decide ALLOW or DENY
-
-
-4. Produce an audit log
-
-
-5. Produce a human-readable report
-
-
-6. Produce a CSV analysis report
-
-
-
-This allows teams to explore governance controls before connecting AI to production systems.
-
-
----
-
-Quick Start
+## Quick Start
 
 Clone the repository:
-
-git clone https://github.com/celestinestudiosllc/ai-action-authorization-test-harness.git
-cd ai-action-authorization-test-harness
-
-Create a virtual environment:
-
-python3 -m venv venv
-source venv/bin/activate
-pip install -e .
-
+ git clone https://github.com/celestinestudiosllc/ai-action-authorization-test-harness.git⁠� cd ai-action-authorization-test-harness
+Create a virtual environment: 
+python3 -m venv venv source venv/bin/activate
+Install dependencies:
+pip install pyyaml pip install -e .
 Run the harness:
-
-python -m src.cli run --matrices examples/matrices --out outputs/test_run
-
-
+python src/cli.py run --matrices examples/matrices --out outputs
 ---
 
-What You Will Get
+## What the Harness Produces
 
-The harness produces:
+Running the harness generates:
 
-Console Decision Output
-
-01_financial_commitment -> DENY
-Authorization required: authority, financial
-
+Console Output
+01_financial_commitment -> DENY Authorization required: authority, financial
 Audit Log
+outputs/audit.jsonl
+Human Readable Report
+outputs/authorization_report.txt
+CSV Analysis Report
+outputs/authorization_report.csv
+---
 
-outputs/test_run/audit.jsonl
+## What the Matrices Represent
 
-Human-Readable Report
+Each matrix simulates a realistic operational action an AI system might attempt:
 
-outputs/test_run/authorization_report.txt
+• sending external emails  
+• deploying to production  
+• exporting customer data  
+• modifying user permissions  
+• issuing refunds  
+• restarting servers  
+• scheduling social media posts  
+• accessing employee records  
 
-Spreadsheet Report
-
-outputs/test_run/authorization_report.csv
-
+These represent tool-use scenarios common in AI-integrated systems.
 
 ---
 
-Example Authorization Result
-
-Matrix: 01_financial_commitment
-Decision: DENY
-Reason: Authorization required: authority, financial
-Signals Detected: authority, financial
-
-
----
-
-What the Matrices Represent
-
-Each matrix simulates a realistic AI action scenario, such as:
-
-• sending external emails
-• deploying to production
-• exporting customer data
-• modifying user permissions
-• issuing refunds
-• restarting servers
-• scheduling social media posts
-• accessing employee records
-
-These represent real operational tool-use behaviors an AI agent could perform.
-
-
----
-
-Intended Audience
+## Intended Audience
 
 This project is relevant to:
 
-• AI engineers
-• system architects
-• platform teams
-• DevOps engineers
-• security teams
-• governance & compliance teams
+• AI engineers  
+• system architects  
+• platform teams  
+• DevOps engineers  
+• security teams  
+• governance and compliance teams  
 • organizations integrating AI with operational systems
 
+---
+
+## Not a Product
+
+This repository is a transparent reference implementation intended to explore the concept of **authorization before execution** in AI-integrated systems.
+
+It is intentionally deterministic so the authorization logic can be examined, discussed, and extended.
 
 ---
 
-Not a Product
+## Try To Break It
 
-This repository is a public research harness and reference implementation.
+If you connect an AI system to tools, workflows, APIs, or automation pipelines, the real question becomes:
 
-It is intentionally transparent and deterministic so the authorization logic can be examined, discussed, and extended.
+**Where should authorization actually live?**
 
+We are interested in:
+
+• failure cases  
+• bypass ideas  
+• adversarial prompts  
+• integration attempts  
+• edge scenarios  
+
+If you find a case where an action should be blocked but is allowed — or allowed but should be blocked — open an issue.
+
+The goal is not to prove a complete solution.
+
+The goal is to explore whether **authorization-before-execution should exist as a standard control layer** for AI systems.
 
 ---
 
-What This Project Explores
-
-A shift from:
-
-AI Safety — controlling responses
-
-to:
-
-AI Governance — controlling actions
-
-
----
-
-Safety Notice
-
-This harness:
-
-• runs locally
-• does not call external APIs
-• does not execute real actions
-• does not control real systems
-
-It simulates authorization decisions only.
-
-Try to Break It
-This harness is intentionally simple and transparent.
-If you connect an LLM to tools, workflows, APIs, or automation systems, this project is meant to provoke a question:
-Where should authorization actually live?
-We are actively interested in:
-failure cases
-bypass ideas
-edge scenarios
-adversarial prompts
-real-world integration attempts
-If you find a case where an action should be blocked but is allowed — or allowed but should be blocked — please open an issue or contact us.
-The goal is not to prove a solution is complete.
-The goal is to explore whether authorization-before-execution should exist as a standard layer in AI-integrated systems.
----
-
-Contact
-
-For questions about authorization modeling or implementation approaches:
+## Contact
 
 celestinestudiosllc@gmail.com
 
-
 ---
 
-License
+## License
 
 MIT License
